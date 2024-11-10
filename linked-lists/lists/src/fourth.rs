@@ -1,3 +1,14 @@
+/// A bad but safe Doubly Linked Queue generic over type 'T'
+/// It can perform the following operations on a stack:
+/// - Push an element at the front of the queue
+/// - Pop an element off the front of the queue
+/// - Peek at the front element of the queue
+/// - Push an element at the back of the queue
+/// - Pop an element off the back of the queue
+/// - Iterate over the elements of the queue via an owned iterator
+///   However, implementing a mutable, or immutable iterator
+///   for a Deque seem impossible with safe Rust
+
 use std::cell::{Ref, RefCell, RefMut};
 use std::rc::Rc;
 
@@ -144,8 +155,6 @@ impl<T> DoubleEndedIterator for IntoIter<T> {
         self.0.pop_back()
     }
 }
-
-/// Implementing an Immutable iterator for a Deque seem impossible with safe Rust
 
 #[cfg(test)]
 mod test {

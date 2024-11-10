@@ -1,4 +1,4 @@
-/// A Minimal Singly Linked List
+/// A Singly Linked List generic over type 'T'
 /// This is a very basic singly linked list implementation.
 /// It can perform the following operations on a stack:
 /// - Push an element onto the stack

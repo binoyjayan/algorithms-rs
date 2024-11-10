@@ -1,3 +1,9 @@
+/// A Singly Linked List of integers
+/// This is a very basic singly linked list implementation.
+/// It can perform the following operations on a stack:
+/// - Push an element onto the stack
+/// - Pop an element off the stack
+
 use std::mem;
 
 /// Public API for the List

@@ -1,5 +1,14 @@
+/// A Singly Linked List with shared ownership
+/// This achieved by using a immutable singly-linked list.
+/// The following operations are supported:
+/// - Prepend an element onto the list and return a new list
+/// - Take the tail of the list and return a new list
+/// - Return a reference to the first element
+/// - Iterate over the elements of the list
+
 use std::rc::Rc;
 
+/// Public API for the List
 pub struct List<T> {
     head: Link<T>,
 }
