@@ -5,7 +5,6 @@
 /// - Take the tail of the list and return a new list
 /// - Return a reference to the first element
 /// - Iterate over the elements of the list
-
 use std::rc::Rc;
 
 /// Public API for the List

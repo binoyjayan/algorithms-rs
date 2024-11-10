@@ -8,7 +8,6 @@
 /// - Iterate over the elements of the queue via an owned iterator
 ///   However, implementing a mutable, or immutable iterator
 ///   for a Deque seem impossible with safe Rust
-
 use std::cell::{Ref, RefCell, RefMut};
 use std::rc::Rc;
 
