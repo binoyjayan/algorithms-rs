@@ -133,6 +133,39 @@ impl<'a, T> Iterator for IterMut<'a, T> {
     }
 }
 
+/// Implementing the trait IntoIterator helps using a list object
+/// in for a loop without explicitly calling into_iter()
+/// Since IntoIterator is implemented for List, the
+/// 'impl<T> List<T>' implementation is redundant.
+impl<T> IntoIterator for List<T> {
+    type Item = T;
+    type IntoIter = IntoIter<T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        IntoIter(self)
+    }
+}
+
+/// Implementing IntoIterator for an immutable reference to List
+impl<'a, T> IntoIterator for &'a List<T> {
+    type Item = &'a T;
+    type IntoIter = Iter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
+    }
+}
+
+/// Implementing IntoIterator for a mutable reference to List
+impl<'a, T> IntoIterator for &'a mut List<T> {
+    type Item = &'a mut T;
+    type IntoIter = IterMut<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter_mut()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::List;
@@ -204,10 +237,55 @@ mod test {
         list.push(3);
 
         let mut result = Vec::new();
+        // Call into_iter() is not needed if IntoIterator is implemented
         for i in list.into_iter() {
             result.push(i);
         }
         assert_eq!(result, vec![3, 2, 1]);
+    }
+    #[test]
+    fn into_iter_for_implicit() {
+        let mut list = List::new();
+        list.push(1);
+        list.push(2);
+        list.push(3);
+
+        let mut result = Vec::new();
+        // Not calling into_iter() explicitly since IntoIterator is implemented
+        for i in list {
+            result.push(i);
+        }
+        assert_eq!(result, vec![3, 2, 1]);
+    }
+    #[test]
+    fn into_iter_for_ref() {
+        let mut list = List::new();
+        list.push(1);
+        list.push(2);
+        list.push(3);
+
+        let mut result = Vec::new();
+        // Immutable reference to list
+        for i in &list {
+            result.push(i);
+        }
+        let expected = vec![&3, &2, &1];
+        assert_eq!(result, expected);
+    }
+    #[test]
+    fn into_iter_for_mut_ref() {
+        let mut list = List::new();
+        list.push(1);
+        list.push(2);
+        list.push(3);
+
+        let mut result = Vec::new();
+        // Immutable reference to list
+        for i in &mut list {
+            result.push(i);
+        }
+        let expected = vec![&3, &2, &1];
+        assert_eq!(result, expected);
     }
     #[test]
     fn iter() {
